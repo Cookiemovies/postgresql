@@ -1,4 +1,4 @@
-# POSTGRESQL / PGADMIN4 in DOCKER
+# POSTGRESQL / PGADMIN4 in DOCKER WITH BACKUP/RESTORE
 
 ## Used Images
 ```
@@ -42,21 +42,28 @@ First stop the containers and then run the backup
 
 ```
 docker-compose stop
+docker run --rm --volumes-from postgresql_db_1 -v C:\Users\marti\Projects\postgresql:/backup alpine sh -c "cd /var/lib/postgresql/data && tar cvf /backup/postgresql_db_data.tar ."
+docker run --rm --volumes-from postgresql_pgadmin_1 -v C:\Users\marti\Projects\postgresql:/backup alpine sh -c "cd /var/lib/pgadmin && tar cvf /backup/postgresql_pgadmin-data.tar ."
+```
+
+When you want to delete everything then  
+
+```
 docker-compose rm
-docker run --rm --volumes-from wordpress_db_1 -v C:\Users\marti\Projects\wordpress:/backup alpine sh -c "cd /var/lib/mysql && tar cvf /backup/wordpress_db.tar ."
-docker run --rm --volumes-from wordpress_wordpress_1 -v C:\Users\marti\Projects\wordpress:/backup alpine sh -c "cd /var/www/html && tar cvf /backup/wordpress_wp.tar ."
+docker volume rm postgresql_db-data
+docker volume rm postgresql_pgadmin-data
 ```
 
 ## Restore the backup
 
 ```
-docker run --rm -v wordpress_wordpress:/recover -v C:\Users\marti\Projects\wordpress:/backup alpine sh -c "cd /recover && tar xvf /backup/wordpress_db.tar"
-docker run --rm -v wordpress_db:/recover -v C:\Users\marti\Projects\wordpress:/backup alpine sh -c "cd /recover && tar xvf /backup/wordpress_wp.tar"
+docker run --rm -v postgresql_db-data:/recover -v C:\Users\marti\Projects\postgresql:/backup alpine sh -c "cd /recover && tar xvf /backup/postgresql_db_data.tar"
+docker run --rm -v postgresql_pgadmin-data:/recover -v C:\Users\marti\Projects\postgresql:/backup alpine sh -c "cd /recover && tar xvf /backup/postgresql_pgadmin-data.tar"
 ```
 
 ## Check the volumes
 
 ```
-docker run --rm -v wordpress_db:/var/lib/mysql alpine sh -c "cd /var/lib/mysql && ls"
-docker run --rm -v wordpress_wordpress:/var/www/html alpine sh -c "cd /var/www/html && ls"
+docker run --rm -v postgresql_db-data:/var/lib/postgresql/data alpine sh -c "cd /var/lib/postgresql/data && ls"
+docker run --rm -v postgresql_pgadmin-data:/var/lib/pgadmin alpine sh -c "cd /var/lib/pgadmin && ls"
 ```
