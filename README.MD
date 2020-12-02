@@ -4,7 +4,10 @@
 ```
 docker pull postgres
 docker pull dpage/pgadmin4
+docker pull alpine
 ```
+
+Alpine image is only used for checking, whether the backup is in place.  
 
 ## Use docker-compose to execute postgreSQL and PGAdmin4
 
