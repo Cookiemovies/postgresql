@@ -1,5 +1,8 @@
 # POSTGRESQL / PGADMIN4 in DOCKER WITH BACKUP/RESTORE
 
+I´ve created a composition of POSTGRESQL and PGADMIN4 to handle POSTGRES databases in container.
+I´ve also added several examples to use in other projects.
+
 ## Used Images
 ```
 docker pull postgres
@@ -70,3 +73,12 @@ docker run --rm -v postgresql_pgadmin-data:/recover -v C:\Users\marti\Projects\p
 docker run --rm -v postgresql_db-data:/var/lib/postgresql/data alpine sh -c "cd /var/lib/postgresql/data && ls"
 docker run --rm -v postgresql_pgadmin-data:/var/lib/pgadmin alpine sh -c "cd /var/lib/pgadmin && ls"
 ```
+
+## Example Databases
+
+dvdrental - A ready to go database, which can be used out of the box. Taken from the Postgres tutorial:  
+https://www.postgresqltutorial.com/postgresql-sample-database/  
+
+cities - Datebase taken and downloaded from geonames.org which has all cities >15000 included from all over the world.  
+
+When you restore the database in the TAR files and execute the docker-compose file, you´re ready to go.
