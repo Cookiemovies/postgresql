@@ -82,3 +82,7 @@ https://www.postgresqltutorial.com/postgresql-sample-database/
 cities - Datebase taken and downloaded from geonames.org which has all cities >15000 included from all over the world.  
 
 When you restore the database in the TAR files and execute the docker-compose file, you´re ready to go.
+
+## Node API Application to retrieve data from PostgreSQL
+
+TBD
